@@ -35,13 +35,9 @@ cargo build --release
 docker build . -t polkadot-sdk-parachain-template
 ```
 
-### Local Development Chain
+## Local Development Chain
 
-# Polkadot Omni Node
-
-This is a white labeled implementation based on [`polkadot-omni-node-lib`](https://crates.io/crates/polkadot-omni-node-lib).
-It can be used to start a parachain node from a provided chain spec file. It is only compatible with runtimes that use block
-number `u32` and `Aura` consensus.
+## Polkadot-omni-node
 
 ## Installation
 
