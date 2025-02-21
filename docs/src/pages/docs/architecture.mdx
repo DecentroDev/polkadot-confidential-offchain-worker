@@ -1,0 +1,86 @@
+---
+sidebarTitle: Architecture
+title: "Architecture & Design"
+description: "Detailed architecture of the Confidential API Off-Chain Worker."
+---
+
+import { Diagram } from "nextra-theme-docs";
+
+# Architecture & Design
+
+The **Confidential API Off-Chain Worker** is designed to securely fetch external data while ensuring **privacy, security, and efficient execution**.
+
+---
+
+## **📌 Overview of the Architecture**
+
+The library consists of three main components:
+
+1️⃣ **Off-Chain Worker Execution** – Triggers the HTTP request from inside a Substrate pallet.  
+
+2️⃣ **Subway Secure RPC Proxy** – Enhances security and efficiency for JSON-RPC calls.  
+
+3️⃣ **HTTP Request Handling** – Uses the `HttpRequest` struct to securely fetch external data.  
+
+4️⃣ **Response Processing & Storage** – Parses the API response and optionally submits it back on-chain.  
+---
+
+## **📌 System Diagram**
+```
++--------------------------+
+|     Substrate Blockchain |
++-----------+--------------+
+      |
+      | 1️⃣ Block Finalized
+      v
++--------------------------+
+|     Off-Chain Worker     |
++-----------+--------------+
+      |
+      | 2️⃣ Read Events
+      v
++--------------------------+
+| Process Pending Events  |
++-----------+--------------+
+      |
+      | 3️⃣ Fetch External API
+      v
++--------------------------+
+| HTTP Client (Fetcher.rs) |
++-----------+--------------+
+      |
+      | 4️⃣ Validate & Parse
+      v
++--------------------------+
+|   Store Data / Submit TX  |
++--------------------------+
+
+  ```
+
+## **📌 Execution Flow**
+
+1️⃣ An event or extrinsic triggers the off-chain worker.  
+
+2️⃣ The worker makes an **HTTP GET request** using `HttpRequest`.  
+
+3️⃣ The response is **validated and parsed** before use.  
+
+4️⃣ The data is optionally **stored on-chain** or used for further processing.  
+
+---
+
+## 🔥 **Security Considerations**
+
+- **Rate Limiting** – Avoid excessive API requests to prevent bans.  
+- **Response Validation** – Always verify external data before using it on-chain.  
+- **Confidentiality** – Ensure sensitive API keys are not exposed in logs.  
+- **Secure RPC Calls** – Consider using [**Subway**](https://github.com/AcalaNetwork/subway) as a **secure proxy** for JSON-RPC requests to enhance security and efficiency.  
+
+---
+
+## 🎯 **Next Steps**  
+
+Now that you’ve integrated **secure API key storage** and **off-chain worker execution**, explore the **architecture** to optimize your implementation.  
+
+[**→ Learn more about Subway for Secure RPC Calls**](https://github.com/AcalaNetwork/subway)  
+[**→ Read the Off-Chain Worker Docs**](/docs)  

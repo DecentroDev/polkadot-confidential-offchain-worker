@@ -1,0 +1,124 @@
+---
+sidebarTitle: Tutorial
+title: "How to Use offchain-utils"
+description: "Step-by-step guide on integrating the Confidential API Off-Chain Worker in a Substrate project."
+---
+
+import { Steps } from "nextra-theme-docs";
+
+# Tutorial: How to Use `offchain-utils`
+
+This tutorial explains how to integrate [`offchain-utils`](https://crates.io/crates/offchain-utils) into a **Substrate-based blockchain** to securely fetch external API data.
+
+---
+
+## **📌 Step 1: Install `offchain-utils`**
+
+Add the crate to your Substrate runtime by running:
+
+```sh
+cargo add offchain-utils
+```
+
+Alternatively, manually add it to your Cargo.toml:
+
+```toml
+[dependencies]
+offchain-utils = "0.1.0"  # Ensure you use the latest published version
+```
+
+
+## 📌  Step 2: Implement API Key Retrieval in the Pallet
+
+Modify your pallet to use offchain-utils::OffchainApiKey for fetching the API key.
+
+📝 Define API Key Fetcher
+
+```rust
+use offchain_utils::offchain_api_key::OffchainApiKey;
+
+pub struct CustomApiKeyFetcher;
+impl OffchainApiKey for CustomApiKeyFetcher {}
+```
+
+🔍 Retrieve API Key Securely
+
+```rust
+impl<T: Config> Pallet<T> {
+    fn get_api_key() -> Result<String, &'static str> {
+        match CustomApiKeyFetcher::fetch_api_key_for_request("key_name") {
+            Ok(key) => Ok(key),
+            Err(err) => {
+                log::error!("Failed to fetch API key: {:?}", err);
+                Err("API key not found in keystore")
+            }
+        }
+    }
+}
+```
+✅ This method retrieves the API key securely from the keystore, avoiding on-chain exposure.
+
+
+## 📌 Step 3: Implement Off-Chain Worker
+Modify your pallet to include the offchain_worker hook:
+
+```rust
+
+#[pallet::hooks]
+impl<T: Config> Hooks<BlockNumberFor<T>> for Pallet<T> {
+    fn offchain_worker(block_number: BlockNumberFor<T>) {
+        log::trace!(target: "logger", "Ping from offchain workers!");
+
+        // Retrieve API Key securely
+        let api_key = match Self::get_api_key() {
+            Ok(key) => key,
+            Err(e) => {
+                log::error!("Offchain worker error: {:?}", e);
+                return;
+            }
+        };
+
+        log::info!("API key retrieved: {}", api_key);
+
+        // Fetch external data using the API key
+        let request = HttpRequest::new("https://api.example.com/data")
+            .add_header("Authorization", &format!("Bearer {}", api_key));
+
+        match DefaultOffchainFetcher::fetch_string(request) {
+            Ok(response) => log::info!("Received API response: {}", response),
+            Err(_) => log::error!("HTTP request failed"),
+        }
+
+        // Retrieve parent block hash (example usage of on-chain data)
+        let parent_hash = <system::Pallet<T>>::block_hash(block_number - 1u32.into());
+        log::debug!(
+            "Current block: {:?} (parent hash: {:?})",
+            block_number,
+            parent_hash
+        );
+    }
+}
+
+```
+
+✅ This worker securely retrieves an API key and fetches external data.
+
+## 📌 Step 4: Submit Data On-Chain (Optional)
+
+If the API response needs to be stored on-chain, use signed transactions:
+
+```rust
+let signer = Signer::<T, T::AuthorityId>::all_accounts();
+let results = signer.send_signed_transaction(|_account| {
+    Call::store_api_response { response: api_response.clone() }
+});
+```
+
+## 🎯 Next Steps
+Now that you’ve integrated secure API key storage and off-chain worker execution, explore the architecture to understand how it works.
+
+Additionally, consider using [Subway](https://github.com/AcalaNetwork/subway) as a secure RPC gateway to optimize and protect your Substrate JSON-RPC calls.
+
+→ Learn about the [Architecture](/docs/architecture) of offchain-utils
+
+→ Secure Your RPC Calls with [Subway](https://github.com/AcalaNetwork/subway)

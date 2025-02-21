@@ -1,0 +1,41 @@
+---
+sidebarTitle: Introduction
+title: "Introduction"
+description: "Confidential API Off-Chain Worker"
+---
+
+import { Callout, Cards, Steps, Tab, Tabs } from "nextra-theme-docs";
+
+# Overview
+
+Welcome to the **Confidential API Off-Chain Worker** documentation!  
+
+This library allows a **Substrate-based blockchain** to securely fetch external API data while keeping sensitive API keys **off-chain**.
+
+## Key Features
+
+✅ **Secure API Key Storage** – API keys are stored **off-chain** and never exposed on-chain.  
+✅ **Automatic Execution** – Runs on every finalized block via Substrate’s **off-chain worker**.  
+✅ **Secure API Calls** – Fetch external data without exposing credentials.  
+✅ **On-Chain Data Submission** – Bring fetched data back on-chain via signed transactions.  
+✅ **No-Std Compatible** – Designed for Substrate's `no_std` runtime.  
+
+---
+
+## How It Works
+
+1️⃣ **API Key Stored Off-Chain** → The API key is securely stored in the off-chain worker's **local storage**.  
+2️⃣ **Off-Chain Worker Runs Every Block** → The worker automatically executes on block finalization.  
+3️⃣ **Fetch External Data** → It retrieves the API key securely and queries an external API.  
+4️⃣ **Process Response** → It validates and logs the response.  
+5️⃣ **Submit Data On-Chain (Optional)** → If needed, it submits a **signed transaction** containing the fetched data.  
+
+
+---
+
+# 📚 Documentation Sections
+
+<Cards num={2}>
+  <Cards.Card arrow title="Tutorial: How to Use" href="/docs/tutorial" />
+  <Cards.Card arrow title="Architecture & Design" href="/docs/architecture" />
+</Cards>
