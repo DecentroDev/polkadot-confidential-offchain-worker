@@ -154,7 +154,6 @@ pub mod pallet {
             // significantly. You can use `RuntimeDebug` custom derive to hide details of the types
             // in WASM. The `sp-api` crate also provides a feature `disable-logging` to disable
             // all logging and thus, remove any logging from the WASM.
-            log::trace!(target: "logger", "offchain worker is working!");
             log::trace!(target: "logger", "Ping from offchain workers!");
 
             // Attempt to retrieve the API key
