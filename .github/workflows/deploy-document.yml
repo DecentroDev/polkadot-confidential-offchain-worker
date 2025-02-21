@@ -42,7 +42,7 @@ jobs:
         working-directory: docs
 
       - name: Build the docs
-        run: pnpm build:web
+        run: pnpm build
         working-directory: docs
 
       - name: Setup Pages
