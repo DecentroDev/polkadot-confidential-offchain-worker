@@ -54,7 +54,9 @@ pub mod pallet {
     use super::*;
     use frame_support::{dispatch::DispatchResultWithPostInfo, pallet_prelude::*, DefaultNoBound};
     use frame_system::pallet_prelude::*;
-    use offchain_utils::offchain_api_key::OffchainApiKey;
+    use offchain_utils::{
+        offchain_api_key::OffchainApiKey, DefaultOffchainFetcher, HttpRequest, OffchainFetcher,
+    };
     use scale_info::prelude::string::String;
 
     pub struct CustomApiKeyFetcher;
@@ -106,12 +108,10 @@ pub mod pallet {
         #[pallet::call_index(0)]
         #[pallet::weight(Weight::from_parts(10_000, 0) + T::DbWeight::get().writes(1))]
         pub fn do_something(origin: OriginFor<T>, bn: u32) -> DispatchResultWithPostInfo {
-            log::trace!(target: "logger", "do_something is working!");
             // Check that the extrinsic was signed and get the signer.
             // This function will return an error if the extrinsic is not signed.
             // <https://paritytech.github.io/polkadot-sdk/master/polkadot_sdk_docs/reference_docs/frame_origin/index.html>
             let who = ensure_signed(origin)?;
-            log::info!("Hello World from offchain workers!");
             // Convert the u32 into a block number. This is possible because the set of trait bounds
             // defined in [`frame_system::Config::BlockNumber`].
             let block_number: BlockNumberFor<T> = bn.into();
@@ -157,15 +157,32 @@ pub mod pallet {
             log::trace!(target: "logger", "Ping from offchain workers!");
 
             // Attempt to retrieve the API key
-            match Self::get_api_key() {
+            let api_key = match Self::get_api_key() {
                 Ok(api_key) => {
                     log::info!("API key retrieved: {}", api_key);
+                    api_key
                 }
                 Err(e) => {
                     log::error!("Offchain worker error: {:?}", e); // Use {:?} for Debug representation
                     return; // Exit early if API key is missing
                 }
+            };
+
+            let url = "https://api.diadata.org/v1/quotation/BTC";
+
+            let request = HttpRequest::new(url).add_header("X-API-Key", &api_key);
+
+            let response = DefaultOffchainFetcher::fetch_string(request);
+
+            match response {
+                Ok(response) => {
+                    log::info!("Response: {}", response);
+                }
+                Err(e) => {
+                    log::error!("Failed to fetch data: {:?}", e);
+                }
             }
+
             // Since off-chain workers are just part of the runtime code, they have direct access
             // to the storage and other included pallets.
             //
