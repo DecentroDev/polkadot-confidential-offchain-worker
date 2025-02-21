@@ -1,13 +1,13 @@
 export type SiteConfig = typeof siteConfig;
 
-export const APP_URL = 'https://localhost:3000';
+export const APP_URL = 'https://decentrodev.github.io/polkadot-confidential-offchain-worker/';
 
 export const siteConfig = {
-  name: 'Polkadot Sufficient Assets - Documentation',
+  name: 'Polkadot Confidential Offchain Worker - Documentation',
   metaTitle:
-    'Polkadot Sufficient Assets is tool that simplifies the process of building asset transfer functionalities within the Polkadot ecosystem. | localhost:3000',
+    'Polkadot Confidential Offchain Worker is tool that simplifies the process of building asset transfer functionalities within the Polkadot ecosystem.',
   description:
-    'Polkadot Sufficient Assets is tool that simplifies the process of building asset transfer functionalities within the Polkadot ecosystem. | localhost:3000',
+    'Polkadot Confidential Offchain Worker is tool that simplifies the process of building asset transfer functionalities within the Polkadot ecosystem.',
   ogImage: `${APP_URL}/og-image.jpg`,
   github: 'https://github.com/DecentroDev/polkadot-confidential-offchain-worker',
 };

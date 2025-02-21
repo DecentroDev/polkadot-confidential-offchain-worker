@@ -4,7 +4,7 @@ import React from 'react';
 import packageJson from './package.json' assert { type: 'json' };
 
 const config: DocsThemeConfig = {
-  logo: <span>Polkadot Sufficient Assets</span>,
+  logo: <span>Polkadot Confidential Offchain Worker</span>,
   project: {
     link: 'https://github.com/DecentroDev/polkadot-confidential-offchain-worker.git',
   },
