@@ -12,6 +12,73 @@ This tutorial explains how to integrate [`offchain-utils`](https://crates.io/cra
 
 ---
 
+## **📌 Clone and Set Up the Substrate Parachain Template**
+
+1. Clone the [Substrate Node Template](https://github.com/paritytech/polkadot-sdk-parachain-template) repository:
+
+* 🦀 The template is using the Rust language.
+
+* 👉 Check the
+[Rust installation instructions](https://www.rust-lang.org/tools/install) for your system.
+
+* 🛠️ Depending on your operating system and Rust version, there might be additional
+packages required to compile this template - please take note of the Rust compiler output.
+
+### Build
+
+🔨 Use the following command to build the node without launching it:
+
+```sh
+cargo build --release
+```
+
+### Run the node locally:
+
+
+Current `polkadot-omni-node` version not working with Offchain worker template. We will wait for the new release.
+
+For now we can clone the [Polkadot SDK monorepo](https://github.com/paritytech/polkadot-sdk) and build that project to get the latest `polkadot-omni-node`.
+
+**1. Clone the repo [Polkadot SDK monorepo](https://github.com/paritytech/polkadot-sdk)**
+
+**2. Assuming you've built the binary using:**
+
+```bash
+cargo build --release
+```
+
+you'll find the executable in the target/release directory.
+
+**3. Make It Executable**
+
+Though Cargo usually sets the execute permission, you can ensure it’s executable by running:
+
+```bash
+chmod +x target/release/polkadot-omni-node
+```
+
+**4. Move the Binary to a Global PATH Directory**
+
+For example, copy it to /usr/local/bin (you might need sudo privileges):
+
+```bash
+sudo cp target/release/polkadot-omni-node /usr/local/bin/
+```
+
+**5. Verify Global Installation**
+
+After copying, verify that it’s accessible globally by running:
+
+```bash
+polkadot-omni-node --help
+```
+
+If everything is set up correctly, you should see the help output for the polkadot-omni-node command.
+
+
+
+# Getting Started
+
 ## **📌 Step 1: Install `offchain-utils`**
 
 Add the crate to your Substrate runtime by running:
@@ -118,6 +185,8 @@ let results = signer.send_signed_transaction(|_account| {
 Now that you’ve integrated secure API key storage and off-chain worker execution, explore the architecture to understand how it works.
 
 Additionally, consider using [Subway](https://github.com/AcalaNetwork/subway) as a secure RPC gateway to optimize and protect your Substrate JSON-RPC calls.
+
+→ Check out our example [Template](/pallets/offchain-worker/src/lib.rs) of offchain-utils
 
 → Learn about the [Architecture](/docs/architecture) of offchain-utils
 
