@@ -18,12 +18,13 @@ The library consists of three main components:
 
 1️⃣ **Off-Chain Worker Execution** – Triggers the HTTP request from inside a Substrate pallet.  
 
-2️⃣ **Subway Secure RPC Proxy** – Enhances security and efficiency for JSON-RPC calls.  
+2️⃣ **HTTP Request Handling** – Uses the `HttpRequest` struct to securely fetch external data.  
 
-3️⃣ **HTTP Request Handling** – Uses the `HttpRequest` struct to securely fetch external data.  
+3️⃣  **Response Processing & Storage** – Parses the API response and optionally submits it back on-chain.  
 
-4️⃣ **Response Processing & Storage** – Parses the API response and optionally submits it back on-chain.  
----
+4️⃣ **Subway Secure RPC Proxy** – Enhances security and efficiency for JSON-RPC calls.  
+
+
 
 ## **📌 System Diagram**
 ```
