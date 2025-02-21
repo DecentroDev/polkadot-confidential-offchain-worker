@@ -35,9 +35,9 @@ jobs:
           version: 9
       - uses: actions/setup-node@v4
         with:
+          cache-dependency-path: docs/pnpm-lock.yaml
           node-version-file: 'docs/.nvmrc'
           cache: pnpm
-
       - run: pnpm install --frozen-lockfile --prefer-offline
 
       - name: Build the docs
