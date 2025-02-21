@@ -43,6 +43,7 @@ jobs:
 
       - name: Build the docs
         run: pnpm build:web
+        working-directory: docs
 
       - name: Setup Pages
         uses: actions/configure-pages@v3
