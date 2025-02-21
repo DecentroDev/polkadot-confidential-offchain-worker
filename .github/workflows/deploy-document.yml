@@ -39,6 +39,7 @@ jobs:
           node-version-file: 'docs/.nvmrc'
           cache: pnpm
       - run: pnpm install --frozen-lockfile --prefer-offline
+        working-directory: docs
 
       - name: Build the docs
         run: pnpm build:web
