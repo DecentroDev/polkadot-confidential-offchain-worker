@@ -18,7 +18,7 @@ sp-core = { workspace = true }
 sp-io = { workspace = true }
 sp-keystore = { optional = true, workspace = true }
 sp-runtime = { workspace = true }
-offchain-utils = { default-features = false, path = "../../offchain-utils" }
+offchain-utils = { version = "0.1.0", default-features = false }
 
 [features]
 default = ["std"]

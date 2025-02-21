@@ -6,16 +6,16 @@ edition = "2021"
 [dependencies]
 codec = { package = "parity-scale-codec", version = "3.0.0", default-features = false, features = ["derive"] }
 scale-info = { version = "2.2.0", default-features = false, features = ["derive"] }
-log = "0.4"
-sp-runtime = { workspace = true }
-sp-core = { workspace = true }
-sp-io = { workspace = true }
+log = { version = "0.4", default-features = false }
+sp-runtime = { version = "39.0.1", default-features = false }
+sp-core = { version = "34.0.0", default-features = false }
+sp-io = { version = "38.0.0", default-features = false }
 serde_json = { version = "1.0.44", default-features = false, features = ["alloc", "arbitrary_precision"] }
 serde = { version = "1.0.160", default-features = false, optional = true }
 
-frame-benchmarking = { workspace = true }
-frame-support = { workspace = true }
-frame-system = { workspace = true }
+frame-benchmarking = { version = "38.0.0", default-features = false, optional = true } 
+frame-support = { version = "38.0.0", default-features = false }
+frame-system = { version = "38.0.0", default-features = false }
 
 [features]
 default = ["std"]
