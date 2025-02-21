@@ -9,5 +9,5 @@ export const siteConfig = {
   description:
     'Polkadot Sufficient Assets is tool that simplifies the process of building asset transfer functionalities within the Polkadot ecosystem. | localhost:3000',
   ogImage: `${APP_URL}/og-image.jpg`,
-  github: 'https://github.com/DecentroDev/polkadot-sufficient-assets',
+  github: 'https://github.com/DecentroDev/polkadot-confidential-offchain-worker',
 };

@@ -16,7 +16,7 @@ const HomePage = () => {
           <Button>Documents</Button>
         </Link>
         <a
-          href="https://github.com/DecentroDev/polkadot-sufficient-assets"
+          href="https://github.com/DecentroDev/polkadot-confidential-offchain-worker"
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -36,7 +36,7 @@ const HomePage = () => {
         rel="noopener noreferrer"
       >
         <img
-          src="https://decentrodev.github.io/polkadot-sufficient-assets/prmx.svg"
+          src="https://decentrodev.github.io/polkadot-confidential-offchain-worker/prmx.svg"
           className="max-w-full"
           width={150}
         />
