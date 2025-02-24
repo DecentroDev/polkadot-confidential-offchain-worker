@@ -1,13 +1,13 @@
 <div align="center">
 
-# Polkadot SDK's Parachain Template
+# Confidential Offchain Worker Dev Tutorial
 
 <img height="70px" alt="Polkadot SDK Logo" src="https://github.com/paritytech/polkadot-sdk/raw/master/docs/images/Polkadot_Logo_Horizontal_Pink_White.png#gh-dark-mode-only"/>
 <img height="70px" alt="Polkadot SDK Logo" src="https://github.com/paritytech/polkadot-sdk/raw/master/docs/images/Polkadot_Logo_Horizontal_Pink_Black.png#gh-light-mode-only"/>
 
-> This is a template for creating a [parachain](https://wiki.polkadot.network/docs/learn-parachains) based on Polkadot SDK.
->
-> This template is automatically updated after releases in the main [Polkadot SDK monorepo](https://github.com/paritytech/polkadot-sdk).
+> This template is based on [parachain template](https://github.com/paritytech/polkadot-sdk/tree/master/templates/parachain) based on Polkadot SDK.
+> 
+> The tutorial below explains how to run and use it.
 
 </div>
 
@@ -21,7 +21,12 @@
 - 🛠️ Depending on your operating system and Rust version, there might be additional
   packages required to compile this template - please take note of the Rust compiler output.
 
-### Build
+- ℹ️ Recommended toolchains (at the time of writing):
+  - `stable-aarch64-apple-darwin (default)`
+  - `nightly-aarch64-apple-darwin (override)`
+
+
+### Build Node Template
 
 🔨 Use the following command to build the node without launching it:
 
@@ -35,76 +40,73 @@ cargo build --release
 docker build . -t polkadot-sdk-parachain-template
 ```
 
-## Local Development Chain
+### Run tests
 
-## Polkadot-omni-node
+In order to execute the tests, run:
 
-## Installation
-
-Download & expose it via `PATH`:
-
-```bash
-# Download and set it on PATH.
-wget https://github.com/paritytech/polkadot-sdk/releases/download/<stable_release_tag>/polkadot-omni-node
-chmod +x polkadot-omni-node
-export PATH="$PATH:`pwd`"
+```sh
+cargo test
 ```
 
-Compile & install via `cargo`:
+### Install `polkadot-omni-node`
 
-```bash
-# Assuming ~/.cargo/bin is on the PATH
-cargo install polkadot-omni-node
-```
+1. Download & expose it via `PATH`.
 
-## Usage
+    ℹ️ **Info:** You can find the stable version [here](https://github.com/paritytech/polkadot-sdk/releases)
+  
+    ```bash
+    # Download and set it on PATH.
+    wget https://github.com/paritytech/polkadot-sdk/releases/download/<stable_release_tag>/polkadot-omni-node
+    chmod +x polkadot-omni-node
+    export PATH="$PATH:`pwd`"
+    ```
 
-A basic example for an Omni Node run starts from a runtime which implements the [`sp_genesis_builder::GenesisBuilder`](https://docs.rs/sp-genesis-builder/latest/sp_genesis_builder/trait.GenesisBuilder.html).
-The interface mandates the runtime to expose a [`named-preset`](https://docs.rs/staging-chain-spec-builder/latest/staging_chain_spec_builder/#generate-chain-spec-using-runtime-provided-genesis-config-preset).
+2. Compile & install via `cargo`:
 
-### 1. Install chain-spec-builder
+    ```bash
+    # Assuming ~/.cargo/bin is on the PATH
+    cargo install polkadot-omni-node
+    ```
 
-**Note**: `chain-spec-builder` binary is published on [`crates.io`](https://crates.io) under
-[`staging-chain-spec-builder`](https://crates.io/crates/staging-chain-spec-builder) due to a name conflict.
-Install it with `cargo` like bellow :
+### Run Node Template
 
-```bash
-cargo install staging-chain-spec-builder
-```
+1. Install `chain-spec-builder`
 
-### 2. Generate a chain spec
+    **Note**: `chain-spec-builder` binary is published on [`crates.io`](https://crates.io) under
+    [`staging-chain-spec-builder`](https://crates.io/crates/staging-chain-spec-builder) due to a name conflict.
+    Install it with `cargo` like bellow :
+    
+    ```bash
+    cargo install staging-chain-spec-builder
+    ```
 
-Omni Node expects for the chain spec to contain parachains related fields like `relay_chain` and `para_id`.
-These fields can be introduced by running [`staging-chain-spec-builder`](https://crates.io/crates/staging-chain-spec-builder)
-with additional flags:
+2. Generate a chain spec
 
-```bash
-chain-spec-builder create --relay-chain <relay_chain_id> --para-id <id> -r <runtime.wasm> named-preset <preset_name>
-```
+    Omni Node expects for the chain spec to contain parachains related fields like `relay_chain` and `para_id`.
+    These fields can be introduced by running [`staging-chain-spec-builder`](https://crates.io/crates/staging-chain-spec-builder)
+    with additional flags:
+    
+    ```
+    chain-spec-builder create -t development \
+    --relay-chain paseo \
+    --para-id 1000 \
+    --runtime ./target/release/wbuild/parachain-template-runtime/parachain_template_runtime.compact.compressed.wasm \
+    named-preset development
+    ```
 
-**For example**
+3. Run the Omni Node
 
-```
-chain-spec-builder create -t development \
---relay-chain paseo \
---para-id 1000 \
---runtime ./target/release/wbuild/parachain-template-runtime/parachain_template_runtime.compact.compressed.wasm \
-named-preset development
-```
+    And now with the generated chain spec we can start the node in development mode like so:
+    
+    ```bash
+    polkadot-omni-node --chain ./chain_spec.json --offchain-worker always --dev
+    ```
 
-### 3. Run Omni Node
+### Test the Node Template
 
-And now with the generated chain spec we can start the node in development mode like so:
-
-```bash
-polkadot-omni-node --dev --chain <chain_spec.json>
-```
-
-**For example**
-
-```bash
-polkadot-omni-node --chain ./chain_spec.json --offchain-worker always --dev
-```
+1. Access in Polkadot.Js Apps --- TODO
+2. Changing an API Key --- TODO
+3. Accessing a protected API --- TODO
 
 ## Useful links
 
@@ -117,7 +119,7 @@ polkadot-omni-node --chain ./chain_spec.json --offchain-worker always --dev
 
 ## Troubleshooting
 
-Current `polkadot-omni-node` version not working with Offchain worker template. We will wait for the new release.
+ℹ️ Unfortunately, the current `polkadot-omni-node` version is NOT compatible with the Offchain worker template. We hope this will be fixed in an upcoming release.
 
 For now we can clone the [Polkadot SDK monorepo](https://github.com/paritytech/polkadot-sdk) and build that project to get the latest `polkadot-omni-node`.
 
