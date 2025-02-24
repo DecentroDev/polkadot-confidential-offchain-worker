@@ -82,12 +82,28 @@ with additional flags:
 chain-spec-builder create --relay-chain <relay_chain_id> --para-id <id> -r <runtime.wasm> named-preset <preset_name>
 ```
 
+**For example: **
+
+```
+chain-spec-builder create -t development \
+--relay-chain paseo \
+--para-id 1000 \
+--runtime ./target/release/wbuild/parachain-template-runtime/parachain_template_runtime.compact.compressed.wasm \
+named-preset development
+```
+
 ### 3. Run Omni Node
 
 And now with the generated chain spec we can start the node in development mode like so:
 
 ```bash
 polkadot-omni-node --dev --chain <chain_spec.json>
+```
+
+**For example: **
+
+```bash
+polkadot-omni-node --chain ./chain_spec.json --offchain-worker always --dev
 ```
 
 ## Useful links
