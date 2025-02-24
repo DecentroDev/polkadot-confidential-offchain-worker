@@ -82,7 +82,7 @@ with additional flags:
 chain-spec-builder create --relay-chain <relay_chain_id> --para-id <id> -r <runtime.wasm> named-preset <preset_name>
 ```
 
-**For example: **
+**For example**
 
 ```
 chain-spec-builder create -t development \
@@ -100,7 +100,7 @@ And now with the generated chain spec we can start the node in development mode 
 polkadot-omni-node --dev --chain <chain_spec.json>
 ```
 
-**For example: **
+**For example**
 
 ```bash
 polkadot-omni-node --chain ./chain_spec.json --offchain-worker always --dev
