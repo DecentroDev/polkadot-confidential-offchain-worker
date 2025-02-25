@@ -2,7 +2,6 @@
 
 # Confidential Offchain Worker Dev Tutorial
 
-<img height="70px" alt="Polkadot SDK Logo" src="https://github.com/paritytech/polkadot-sdk/raw/master/docs/images/Polkadot_Logo_Horizontal_Pink_White.png#gh-dark-mode-only"/>
 <img height="70px" alt="Polkadot SDK Logo" src="https://github.com/paritytech/polkadot-sdk/raw/master/docs/images/Polkadot_Logo_Horizontal_Pink_Black.png#gh-light-mode-only"/>
 
 > This template is based on [parachain template](https://github.com/paritytech/polkadot-sdk/tree/master/templates/parachain) based on Polkadot SDK.
@@ -104,9 +103,49 @@ cargo test
 
 ### Test the Node Template
 
-1. Access in Polkadot.Js Apps --- TODO
-2. Changing an API Key --- TODO
-3. Accessing a protected API --- TODO
+
+#### 1. Connect with the Polkadot-JS Apps Front-End
+
+- 🌐 You can interact with your local node using the
+  hosted version of the Polkadot/Substrate Portal:
+  [relay chain](https://polkadot.js.org/apps/#/explorer?rpc=ws://localhost:9944)
+  and [parachain](https://polkadot.js.org/apps/#/explorer?rpc=ws://localhost:9988).
+
+- 🪐 A hosted version is also
+  available on [IPFS](https://dotapps.io/).
+
+- 🧑‍🔧 You can also find the source code and instructions for hosting your own instance in the
+  [`polkadot-js/apps`](https://github.com/polkadot-js/apps) repository.
+
+### 2. Updating Your API Key
+
+We use **offchain local storage** to store the API key. You can update it using one of the following methods:
+
+#### Using Polkadot-JS Apps
+1. Open **Polkadot-JS Apps**.
+2. Navigate to the **"RPC"** tab.
+3. Select **"offchain"** → **"localStorageSet"**.
+4. Enter the key and value for your API key.
+5. Submit the transaction.
+
+#### Using an RPC Call
+You can also update the API key programmatically using an **RPC call**:
+
+```json
+{
+  "jsonrpc": "2.0",
+  "method": "offchain_localStorageSet",
+  "params": ["persistent", "api_key", "your_new_api_key"],
+  "id": 1
+}
+```
+Replace "your_new_api_key" with your actual API key.
+
+### 3. Protecting Your API Key
+
+You can use **Subway** as a **JSON RPC Gateway** to enhance security by protecting your API key with middleware and configuration settings.  
+
+🔗 **Check out the documentation for more details:** [Subway](https://github.com/AcalaNetwork/subway)
 
 ## Useful links
 
@@ -158,36 +197,3 @@ polkadot-omni-node --help
 ```
 
 If everything is set up correctly, you should see the help output for the polkadot-omni-node command.
-
-### Connect with the Polkadot-JS Apps Front-End
-
-- 🌐 You can interact with your local node using the
-  hosted version of the Polkadot/Substrate Portal:
-  [relay chain](https://polkadot.js.org/apps/#/explorer?rpc=ws://localhost:9944)
-  and [parachain](https://polkadot.js.org/apps/#/explorer?rpc=ws://localhost:9988).
-
-- 🪐 A hosted version is also
-  available on [IPFS](https://dotapps.io/).
-
-- 🧑‍🔧 You can also find the source code and instructions for hosting your own instance in the
-  [`polkadot-js/apps`](https://github.com/polkadot-js/apps) repository.
-
-## Contributing
-
-- 🔄 This template is automatically updated after releases in the main [Polkadot SDK monorepo](https://github.com/paritytech/polkadot-sdk).
-
-- ➡️ Any pull requests should be directed to this [source](https://github.com/paritytech/polkadot-sdk/tree/master/templates/parachain).
-
-- 😇 Please refer to the monorepo's
-  [contribution guidelines](https://github.com/paritytech/polkadot-sdk/blob/master/docs/contributor/CONTRIBUTING.md) and
-  [Code of Conduct](https://github.com/paritytech/polkadot-sdk/blob/master/docs/contributor/CODE_OF_CONDUCT.md).
-
-## Getting Help
-
-- 🧑‍🏫 To learn about Polkadot in general, [Polkadot.network](https://polkadot.network/) website is a good starting point.
-
-- 🧑‍🔧 For technical introduction, [here](https://github.com/paritytech/polkadot-sdk#-documentation) are
-  the Polkadot SDK documentation resources.
-
-- 👥 Additionally, there are [GitHub issues](https://github.com/paritytech/polkadot-sdk/issues) and
-  [Substrate StackExchange](https://substrate.stackexchange.com/).

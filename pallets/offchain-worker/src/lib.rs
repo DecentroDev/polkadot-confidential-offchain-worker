@@ -129,7 +129,7 @@ pub mod pallet {
 
     impl<T: Config> Pallet<T> {
         fn get_api_key() -> Result<String, &'static str> {
-            match CustomApiKeyFetcher::fetch_api_key_for_request("pricing_api_key") {
+            match CustomApiKeyFetcher::fetch_api_key_for_request("api_key") {
                 Ok(key) => Ok(key),
                 Err(err) => {
                     log::error!("Failed to fetch API key: {:?}", err); // Use {:?} for Debug representation
