@@ -193,7 +193,9 @@ chmod +x target/release/polkadot-omni-node
 
 #### 4. Move the Binary to a Global PATH Directory
 
-For example, copy it to /usr/local/bin (you might need sudo privileges):
+> ⚠️ **IMPORTANT:** If you've already installed an older version of `polkadot-omni-node`, you'll have to remove it manually first by executing `cargo uninstall polkadot-omni-node`.
+
+Copy it to /usr/local/bin (you might need sudo privileges):
 
 ```bash
 sudo cp target/release/polkadot-omni-node /usr/local/bin/
@@ -205,6 +207,13 @@ After copying, verify that it’s accessible globally by running:
 
 ```bash
 polkadot-omni-node --help
+```
+
+Make sure that you're using v1.17.1 or above:
+
+```bash
+ % polkadot-omni-node --version
+polkadot-omni-node 1.17.1-4a400dc1866
 ```
 
 If everything is set up correctly, you should see the help output for the polkadot-omni-node command.
