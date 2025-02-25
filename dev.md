@@ -4,9 +4,9 @@
 
 <img height="70px" alt="Polkadot SDK Logo" src="https://github.com/paritytech/polkadot-sdk/raw/master/docs/images/Polkadot_Logo_Horizontal_Pink_Black.png#gh-light-mode-only"/>
 
-> This template is based on [parachain template](https://github.com/paritytech/polkadot-sdk/tree/master/templates/parachain) based on Polkadot SDK.
+> This template is based on the Polkadot SDK's [parachain template](https://github.com/paritytech/polkadot-sdk/tree/master/templates/parachain).
 > 
-> The tutorial below explains how to run and use it.
+> The tutorial below explains how to run and use the Confidential Offchain Worker template, allowing you to access protected HTTP resources through Substrate's offchain worker feature.
 
 </div>
 
