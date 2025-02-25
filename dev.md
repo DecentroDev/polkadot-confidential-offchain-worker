@@ -160,7 +160,7 @@ You can use **Subway** as a **JSON RPC Gateway** to enhance security by protecti
 
 ℹ️ Unfortunately, the current `polkadot-omni-node` version is NOT compatible with the Offchain worker template. We hope this will be fixed in an upcoming release.
 
-For now we can clone the [Polkadot SDK monorepo](https://github.com/paritytech/polkadot-sdk) and build that project to get the latest `polkadot-omni-node`.
+For now we can clone the [Polkadot SDK monorepo](https://github.com/paritytech/polkadot-sdk) and build that project to get the latest `polkadot-omni-node` (at commit height [87f4f3f](https://github.com/paritytech/polkadot-sdk/commit/87f4f3f0df5fc0cc72f69e612909d4d213965820) or higher).
 
 #### 1. Clone the repo [Polkadot SDK monorepo](https://github.com/paritytech/polkadot-sdk)
 
