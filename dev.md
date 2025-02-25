@@ -57,7 +57,7 @@ cargo test
 
 1. Download & expose it via `PATH`.
 
-    ℹ️ **Info:** You can find the stable version [here](https://github.com/paritytech/polkadot-sdk/releases)
+    > ℹ️ **Info:** You can find the stable version [here](https://github.com/paritytech/polkadot-sdk/releases)
   
     ```bash
     # Download and set it on PATH.
@@ -74,6 +74,8 @@ cargo test
     ```
 
 ### Run Node Template
+
+> ℹ️ Before running the template, make sure `polkadot-omni-node` has been installed (see previous chapter).
 
 1. Install `chain-spec-builder`
 
@@ -112,30 +114,29 @@ cargo test
 
 #### 1. Connect with the Polkadot-JS Apps Front-End
 
-- 🌐 You can interact with your local node using the
-  hosted version of the Polkadot/Substrate Portal:
-  [relay chain](https://polkadot.js.org/apps/#/explorer?rpc=ws://localhost:9944)
-  and [parachain](https://polkadot.js.org/apps/#/explorer?rpc=ws://localhost:9988).
+- Connect to your local node using the Polkadot/Substrate Portal:
+  https://polkadot.js.org/apps/#/explorer?rpc=ws://localhost:9944.
 
-- 🪐 A hosted version is also
-  available on [IPFS](https://dotapps.io/).
-
-- 🧑‍🔧 You can also find the source code and instructions for hosting your own instance in the
-  [`polkadot-js/apps`](https://github.com/polkadot-js/apps) repository.
-
-### 2. Updating Your API Key
+### 2. Update Your API Key
 
 We use **offchain local storage** to store the API key. You can update it using one of the following methods:
 
 #### Using Polkadot-JS Apps
-1. Open **Polkadot-JS Apps**.
-2. Navigate to the **"RPC"** tab.
-3. Select **"offchain"** → **"localStorageSet"**.
-4. Enter the key and value for your API key.
-5. Submit the transaction.
+1. Head to the [**"RPC"** tab](https://polkadot.js.org/apps/#/rpc).
+2. Select **"offchain"** → **"localStorageSet"**.
+3. Enter the key and value for your API key. For this demo, we'll use `Basic cG9zdG1hbjpwYXNzd29yZA==`:
+
+    <img width="751" alt="image" src="https://github.com/user-attachments/assets/020b2359-57c2-47b6-8f7e-bdd3fe98a012" />
+
+4. Submit the transaction.
+5. Since these RPC endpoints are public, you should be able to query the endpoint:
+
+   <img width="746" alt="image" src="https://github.com/user-attachments/assets/dc14abef-bc29-4a76-b38a-790f963a2bcb" />
+
+   ⚠️ **IMPORTANT:** Obviousely this alone is not very secure. In order to protect your api key from being read by unauthorized parties, see the [next chapter](#3-protecting-your-api-key)
 
 #### Using an RPC Call
-You can also update the API key programmatically using an **RPC call**:
+Alternatively to using Polkadot.js apps, you can also update the API key programmatically using an **RPC call**:
 
 ```json
 {
@@ -151,10 +152,7 @@ Replace "your_new_api_key" with your actual API key.
 
 It's important to understand that per default, the `offchain.localStorageSet(kind, key, value)` endpoint is publicly callable without any restrictions (see also: https://github.com/paritytech/substrate/issues/2303). For this reason, an attacker could easily overwrite the api key if he knew how the `key` is called.
 
-We identified 2 solutions to mitigate this problem:
-
-- **Solution A:** For the key, use a value that is hard to guess. However, this is not very user-friendly, since safe values are cryptic and not human-readable.
-- **Solution B:** You can use Acala's **Subway** as a **JSON RPC Gateway** to enhance security by protecting your API key with middleware and configuration settings. This solutions allows you to whitelist clients that are allowed to call the endpoint you want to protect (in this case, `offchain.localStorageSet(kind, key, value)`).
+To mitigate this problem, you can use Acala's **Subway** as a **JSON RPC Gateway** to enhance security by protecting your API key with middleware and configuration settings. This solutions allows you to whitelist clients that are allowed to call the endpoint you want to protect (in this case, `offchain.localStorageSet(kind, key, value)`).
 
   🔗 **Check out the documentation for more details:** [Subway](https://github.com/AcalaNetwork/subway)
 
@@ -171,7 +169,7 @@ We identified 2 solutions to mitigate this problem:
 
 ### Manual `polkadot-omni-node` Installation
 
-ℹ️ Unfortunately, the currently stable `polkadot-omni-node` version is NOT compatible with the Offchain worker template. We expect this to be fixed in an upcoming release (see [this PR](https://github.com/paritytech/polkadot-sdk/pull/7479)).
+> ℹ️ Unfortunately, the currently stable `polkadot-omni-node` version is NOT compatible with the Offchain worker template. We expect this to be fixed in an upcoming release (see [this PR](https://github.com/paritytech/polkadot-sdk/pull/7479)).
 
 In order to use the offchain features on the `polkadot-omni-node`, we can clone the [Polkadot SDK monorepo](https://github.com/paritytech/polkadot-sdk) and build it manually (at commit height [87f4f3f](https://github.com/paritytech/polkadot-sdk/commit/87f4f3f0df5fc0cc72f69e612909d4d213965820) or higher).
 
