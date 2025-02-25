@@ -103,14 +103,21 @@ cargo test
 
 3. Run the Omni Node
 
-    And now with the generated chain spec we can start the node in development mode like so:
+    And now with the generated chain spec we can start the node in development mode.
+
+    > ℹ️ We're including trace logs here so we get more insights about the offchain-worker activity
     
     ```bash
-    polkadot-omni-node --chain ./chain_spec.json --offchain-worker always --dev
+    polkadot-omni-node --chain ./chain_spec.json --offchain-worker always --dev --log offchain=trace,logger=trace
     ```
 
-### Test the Node Template
+    Note how the protected API is currently not accessible by the off-chain worker, hence ERRORs are being shown:
 
+    <img width="1504" alt="image" src="https://github.com/user-attachments/assets/fa52cb47-db40-43f7-b0ba-d01d117fe660" />
+
+    ➡️ In the next chapter we're going to explain how to configure the API key.
+
+### Configure the API Key
 
 #### 1. Connect with the Polkadot-JS Apps Front-End
 
@@ -124,16 +131,14 @@ We use **offchain local storage** to store the API key. You can update it using 
 #### Using Polkadot-JS Apps
 1. Head to the [**"RPC"** tab](https://polkadot.js.org/apps/#/rpc).
 2. Select **"offchain"** → **"localStorageSet"**.
-3. Enter the key and value for your API key. For this demo, we'll use `Basic cG9zdG1hbjpwYXNzd29yZA==`:
+3. Enter the key and value for your API key. For this demo, we'll use a [protected Postman demo endpoint](https://www.postman.com/postman/published-postman-templates/request/mj0cy1z/basic-auth) that can be accessed with `Basic cG9zdG1hbjpwYXNzd29yZA==`:
 
     <img width="751" alt="image" src="https://github.com/user-attachments/assets/020b2359-57c2-47b6-8f7e-bdd3fe98a012" />
 
 4. Submit the transaction.
-5. Since these RPC endpoints are public, you should be able to query the endpoint:
+5. Verify that the authorization ERROR doesn't occur anymore and the protected API resrouce can be accessed by the offchain-worker:
 
-   <img width="746" alt="image" src="https://github.com/user-attachments/assets/dc14abef-bc29-4a76-b38a-790f963a2bcb" />
-
-   ⚠️ **IMPORTANT:** Obviousely this alone is not very secure. In order to protect your api key from being read by unauthorized parties, see the [next chapter](#3-protecting-your-api-key)
+   <img width="1503" alt="image" src="https://github.com/user-attachments/assets/e737b729-7730-4991-8653-03c3dd39f1a2" />
 
 #### Using an RPC Call
 Alternatively to using Polkadot.js apps, you can also update the API key programmatically using an **RPC call**:
