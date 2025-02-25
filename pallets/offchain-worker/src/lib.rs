@@ -168,9 +168,9 @@ pub mod pallet {
                 }
             };
 
-            let url = "https://api.diadata.org/v1/quotation/BTC";
+            let url = "https://postman-echo.com/basic-auth";
 
-            let request = HttpRequest::new(url).add_header("X-API-Key", &api_key);
+            let request = HttpRequest::new(url).add_header("Authorization", &api_key);
 
             let response = DefaultOffchainFetcher::fetch_string(request);
 
