@@ -149,9 +149,14 @@ Replace "your_new_api_key" with your actual API key.
 
 ### 3. Protecting Your API Key
 
-You can use **Subway** as a **JSON RPC Gateway** to enhance security by protecting your API key with middleware and configuration settings.  
+It's important to understand that per default, the `offchain.localStorageSet(kind, key, value)` endpoint is publicly callable without any restrictions (see also: https://github.com/paritytech/substrate/issues/2303). For this reason, an attacker could easily overwrite the api key if he knew how the `key` is called.
 
-🔗 **Check out the documentation for more details:** [Subway](https://github.com/AcalaNetwork/subway)
+We identified 2 solutions to mitigate this problem:
+
+- **Solution A:** For the key, use a value that is hard to guess. However, this is not very user-friendly, since safe values are cryptic and not human-readable.
+- **Solution B:** You can use Acala's **Subway** as a **JSON RPC Gateway** to enhance security by protecting your API key with middleware and configuration settings. This solutions allows you to whitelist clients that are allowed to call the endpoint you want to protect (in this case, `offchain.localStorageSet(kind, key, value)`).
+
+  🔗 **Check out the documentation for more details:** [Subway](https://github.com/AcalaNetwork/subway)
 
 ## Useful links
 
