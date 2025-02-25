@@ -47,7 +47,9 @@ In order to execute the tests, run:
 cargo test
 ```
 
-### Install `polkadot-omni-node`
+### `polkadot-omni-node` Installation
+
+> ⚠️ IMPORTANT: The stable release doesn't currently support offchain-worker functionality. As a temporary fix, we have to manually clone and build the repository. Please head to the [Manual `polkadot-omni-node` Installation](#manual-polkadot-omni-node-installation) section and follow the instructions there.
 
 1. Download & expose it via `PATH`.
 
@@ -158,9 +160,11 @@ You can use **Subway** as a **JSON RPC Gateway** to enhance security by protecti
 
 ## Troubleshooting
 
-ℹ️ Unfortunately, the current `polkadot-omni-node` version is NOT compatible with the Offchain worker template. We hope this will be fixed in an upcoming release.
+### Manual `polkadot-omni-node` Installation
 
-For now we can clone the [Polkadot SDK monorepo](https://github.com/paritytech/polkadot-sdk) and build that project to get the latest `polkadot-omni-node` (at commit height [87f4f3f](https://github.com/paritytech/polkadot-sdk/commit/87f4f3f0df5fc0cc72f69e612909d4d213965820) or higher).
+ℹ️ Unfortunately, the currently stable `polkadot-omni-node` version is NOT compatible with the Offchain worker template. We expect this to be fixed in an upcoming release (see [this PR](https://github.com/paritytech/polkadot-sdk/pull/7479)).
+
+In order to use the offchain features on the `polkadot-omni-node`, we can clone the [Polkadot SDK monorepo](https://github.com/paritytech/polkadot-sdk) and build it manually (at commit height [87f4f3f](https://github.com/paritytech/polkadot-sdk/commit/87f4f3f0df5fc0cc72f69e612909d4d213965820) or higher).
 
 #### 1. Clone the repo [Polkadot SDK monorepo](https://github.com/paritytech/polkadot-sdk)
 
