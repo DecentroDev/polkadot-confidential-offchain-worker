@@ -24,6 +24,10 @@
   - `stable-aarch64-apple-darwin (default)`
   - `nightly-aarch64-apple-darwin (override)`
 
+  To configure them, run:
+  ```
+  rustup default stable-aarch64-apple-darwin && rustup override set nightly-aarch64-apple-darwin
+  ```
 
 ### Build Node Template
 
@@ -49,7 +53,7 @@ cargo test
 
 ### `polkadot-omni-node` Installation
 
-> ⚠️ IMPORTANT: The stable release doesn't currently support offchain-worker functionality. As a temporary fix, we have to manually clone and build the repository. Please head to the [Manual `polkadot-omni-node` Installation](#manual-polkadot-omni-node-installation) section and follow the instructions there.
+> ⚠️ **IMPORTANT:** The stable release doesn't currently support offchain-worker functionality. As a temporary fix, we have to manually clone and build the repository. Please head to the [Manual `polkadot-omni-node` Installation](#manual-polkadot-omni-node-installation) section and follow the instructions there.
 
 1. Download & expose it via `PATH`.
 
