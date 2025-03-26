@@ -5,29 +5,140 @@
 <img height="70px" alt="Polkadot SDK Logo" src="https://github.com/paritytech/polkadot-sdk/raw/master/docs/images/Polkadot_Logo_Horizontal_Pink_Black.png#gh-light-mode-only"/>
 
 > This template is based on the Polkadot SDK's [parachain template](https://github.com/paritytech/polkadot-sdk/tree/master/templates/parachain).
-> 
+>
 > The tutorial below explains how to run and use the Confidential Offchain Worker template, allowing you to access protected HTTP resources through Substrate's offchain worker feature.
 
 </div>
 
-## Getting Started
+## Getting Started 
 
-- 🦀 The template is using the Rust language.
+### MacOS
+**Install**
+First, we will need Homebrew - the macOS package manager. Run the following in your Terminal.
 
-- 👉 Check the
-  [Rust installation instructions](https://www.rust-lang.org/tools/install) for your system.
+```
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 
-- 🛠️ Depending on your operating system and Rust version, there might be additional
-  packages required to compile this template - please take note of the Rust compiler output.
+```
 
-- ℹ️ Recommended toolchains (at the time of writing):
-  - `stable-aarch64-apple-darwin (default)`
-  - `nightly-aarch64-apple-darwin (override)`
+Make sure brew installed properly.
 
-  To configure them, run:
-  ```
-  rustup default stable-aarch64-apple-darwin && rustup override set nightly-aarch64-apple-darwin
-  ```
+```
+brew --version
+```
+
+And let's make sure brew is up-to-date with the latest packages.
+
+```
+brew update
+```
+
+Now let's install the necessary packages.
+
+```
+brew install cmake openssl protobuf
+```
+
+Now let's install Rust.
+
+```
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+```
+
+Don't forget to update the shell to include the necessary environment variables.
+
+```
+source ~/.cargo/env
+```
+
+You should now have Rust installed. Double check.
+
+```
+rustc --version
+```
+
+Now let's configure the Rust toolchain.
+
+```
+rustup default stable
+rustup update
+rustup target add wasm32-unknown-unknown
+```
+
+And add the nightly release channel.
+
+```
+rustup update nightly
+rustup target add wasm32-unknown-unknown --toolchain nightly
+```
+
+You can confirm your Rust toolchain was installed properly with the following commands.
+
+```
+rustup show
+rustup +nightly show
+```
+
+### Linux
+
+These instructions will guide you on installing the necessary prerequisites for Linux to install Pop CLI and use all its features.
+
+Help improve this documentation. Check our contribution guidelines.
+
+**For Fedora**
+```
+sudo dnf update
+sudo dnf install clang curl git openssl-devel make protobuf-compiler
+```
+
+**For OpenSUSE**
+
+```
+sudo zypper install clang curl git openssl-devel llvm-devel libudev-devel make protobuf
+```
+
+**Install Rust**
+
+
+```
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+```
+
+
+Don't forget to update the shell to include the necessary environment variables.
+
+```
+source $HOME/.cargo/env
+```
+
+You should now have Rust installed. Double check.
+
+```
+rustc --version
+
+```
+
+Now let's configure the Rust toolchain.
+
+```
+rustup default stable
+rustup update
+rustup target add wasm32-unknown-unknown
+```
+
+And add the nightly release channel.
+
+```
+rustup update nightly
+rustup target add wasm32-unknown-unknown --toolchain nightly
+```
+
+You can confirm your Rust toolchain was installed properly with the following commands.
+
+```
+rustup show
+rustup +nightly show
+```
 
 ### Build Node Template
 
@@ -57,21 +168,21 @@ cargo test
 
 1. Download & expose it via `PATH`.
 
-    > ℹ️ **Info:** You can find the stable version [here](https://github.com/paritytech/polkadot-sdk/releases)
-  
-    ```bash
-    # Download and set it on PATH.
-    wget https://github.com/paritytech/polkadot-sdk/releases/download/<stable_release_tag>/polkadot-omni-node
-    chmod +x polkadot-omni-node
-    export PATH="$PATH:`pwd`"
-    ```
+   > ℹ️ **Info:** You can find the stable version [here](https://github.com/paritytech/polkadot-sdk/releases)
+
+   ```bash
+   # Download and set it on PATH.
+   wget https://github.com/paritytech/polkadot-sdk/releases/download/<stable_release_tag>/polkadot-omni-node
+   chmod +x polkadot-omni-node
+   export PATH="$PATH:`pwd`"
+   ```
 
 2. Compile & install via `cargo`:
 
-    ```bash
-    # Assuming ~/.cargo/bin is on the PATH
-    cargo install polkadot-omni-node
-    ```
+   ```bash
+   # Assuming ~/.cargo/bin is on the PATH
+   cargo install polkadot-omni-node
+   ```
 
 ### Run Node Template
 
@@ -79,43 +190,50 @@ cargo test
 
 1. Install `chain-spec-builder`
 
-    **Note**: `chain-spec-builder` binary is published on [`crates.io`](https://crates.io) under
-    [`staging-chain-spec-builder`](https://crates.io/crates/staging-chain-spec-builder) due to a name conflict.
-    Install it with `cargo` like bellow :
-    
-    ```bash
-    cargo install staging-chain-spec-builder
-    ```
+   **Note**: `chain-spec-builder` binary is published on [`crates.io`](https://crates.io) under
+   [`staging-chain-spec-builder`](https://crates.io/crates/staging-chain-spec-builder) due to a name conflict.
+   Install it with `cargo` like bellow :
+
+   ```bash
+   cargo install staging-chain-spec-builder
+   ```
 
 2. Generate a chain spec
 
-    Omni Node expects for the chain spec to contain parachains related fields like `relay_chain` and `para_id`.
-    These fields can be introduced by running [`staging-chain-spec-builder`](https://crates.io/crates/staging-chain-spec-builder)
-    with additional flags:
-    
-    ```
-    chain-spec-builder create -t development \
-    --relay-chain paseo \
-    --para-id 1000 \
-    --runtime ./target/release/wbuild/parachain-template-runtime/parachain_template_runtime.compact.compressed.wasm \
-    named-preset development
-    ```
+   Omni Node expects for the chain spec to contain parachains related fields like `relay_chain` and `para_id`.
+   These fields can be introduced by running [`staging-chain-spec-builder`](https://crates.io/crates/staging-chain-spec-builder)
+   with additional flags:
+
+   ```
+   chain-spec-builder create -t development \
+   --relay-chain paseo \
+   --para-id 1000 \
+   --runtime ./target/release/wbuild/parachain-template-runtime/parachain_template_runtime.compact.compressed.wasm \
+   named-preset development
+   ```
+
+   or
+
+   ```
+   chain-spec-builder create --raw-storage --relay-chain "rococo-local" --para-id 1000 --runtime \
+   target/release/wbuild/parachain-template-runtime/parachain_template_runtime.wasm named-preset development
+   ```
 
 3. Run the Omni Node
 
-    And now with the generated chain spec we can start the node in development mode.
+   And now with the generated chain spec we can start the node in development mode.
 
-    > ℹ️ We're including trace logs here so we get more insights about the offchain-worker activity
-    
-    ```bash
-    polkadot-omni-node --chain ./chain_spec.json --offchain-worker always --dev --log offchain=trace,logger=trace
-    ```
+   > ℹ️ We're including trace logs here so we get more insights about the offchain-worker activity
 
-    Note how the protected API is currently not accessible by the off-chain worker, hence ERRORs are being shown:
+   ```bash
+   polkadot-omni-node --chain ./chain_spec.json --offchain-worker always --dev --log offchain=trace,logger=trace
+   ```
 
-    <img width="1504" alt="image" src="https://github.com/user-attachments/assets/fa52cb47-db40-43f7-b0ba-d01d117fe660" />
+   Note how the protected API is currently not accessible by the off-chain worker, hence ERRORs are being shown:
 
-    ➡️ In the next chapter we're going to explain how to configure the API key.
+   <img width="1504" alt="image" src="https://github.com/user-attachments/assets/fa52cb47-db40-43f7-b0ba-d01d117fe660" />
+
+   ➡️ In the next chapter we're going to explain how to configure the API key.
 
 ### Configure the API Key
 
@@ -129,11 +247,12 @@ cargo test
 We use **offchain local storage** to store the API key. You can update it using one of the following methods:
 
 #### Using Polkadot-JS Apps
+
 1. Head to the [**"RPC"** tab](https://polkadot.js.org/apps/#/rpc).
 2. Select **"offchain"** → **"localStorageSet"**.
 3. Enter the key and value for your API key. For this demo, we'll use a [protected Postman demo endpoint](https://www.postman.com/postman/published-postman-templates/request/mj0cy1z/basic-auth) that can be accessed with `Basic cG9zdG1hbjpwYXNzd29yZA==`:
 
-    <img width="751" alt="image" src="https://github.com/user-attachments/assets/020b2359-57c2-47b6-8f7e-bdd3fe98a012" />
+<img width="751" alt="image" src="https://github.com/user-attachments/assets/020b2359-57c2-47b6-8f7e-bdd3fe98a012" />
 
 4. Submit the transaction.
 5. Verify that the authorization ERROR doesn't occur anymore and the protected API resrouce can be accessed by the offchain-worker:
@@ -141,6 +260,7 @@ We use **offchain local storage** to store the API key. You can update it using 
    <img width="1503" alt="image" src="https://github.com/user-attachments/assets/e737b729-7730-4991-8653-03c3dd39f1a2" />
 
 #### Using an RPC Call
+
 Alternatively to using Polkadot.js apps, you can also update the API key programmatically using an **RPC call**:
 
 ```json
@@ -151,6 +271,7 @@ Alternatively to using Polkadot.js apps, you can also update the API key program
   "id": 1
 }
 ```
+
 Replace "your_new_api_key" with your actual API key.
 
 ### 3. Protecting Your API Key
@@ -159,7 +280,7 @@ It's important to understand that per default, the `offchain.localStorageSet(kin
 
 To mitigate this problem, you can use Acala's **Subway** as a **JSON RPC Gateway** to enhance security by protecting your API key with middleware and configuration settings. This solutions allows you to whitelist clients that are allowed to call the endpoint you want to protect (in this case, `offchain.localStorageSet(kind, key, value)`).
 
-  🔗 **Check out the documentation for more details:** [Subway](https://github.com/AcalaNetwork/subway)
+🔗 **Check out the documentation for more details:** [Subway](https://github.com/AcalaNetwork/subway)
 
 ## Useful links
 

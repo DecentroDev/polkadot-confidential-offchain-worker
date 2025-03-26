@@ -67,7 +67,7 @@ substrate-frame-rpc-system = { version = "39.0.0", default-features = false }
 xcm = { version = "14.2.0", default-features = false, package = "staging-xcm" }
 substrate-build-script-utils = { version = "11.0.0", default-features = false }
 cumulus-pallet-aura-ext = { version = "0.17.0", default-features = false }
-cumulus-pallet-parachain-system = { version = "0.17.0", default-features = false }
+cumulus-pallet-parachain-system = { version = "0.17.1", default-features = false }
 cumulus-pallet-session-benchmarking = { version = "19.0.0", default-features = false }
 cumulus-pallet-xcm = { version = "0.17.0", default-features = false }
 cumulus-pallet-xcmp-queue = { version = "0.17.0", default-features = false }
