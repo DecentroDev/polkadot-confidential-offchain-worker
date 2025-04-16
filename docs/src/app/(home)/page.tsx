@@ -8,7 +8,7 @@ const HomePage = () => {
   return (
     <section className="flex h-full flex-1 flex-col items-center justify-center">
       <h1 className="text-center font-bold font-mono text-5xl">
-        Confidential API Off-Chain Worker
+        Polkadot confidential off-chain worker
       </h1>
 
       <HStack pos="center" className="mt-6">
