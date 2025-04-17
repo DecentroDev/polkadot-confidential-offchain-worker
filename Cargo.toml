@@ -1,8 +1,8 @@
 [workspace.package]
 license = "MIT-0"
-authors = ["Parity Technologies <admin@parity.io>"]
-homepage = "https://paritytech.github.io/polkadot-sdk/"
-repository = "https://github.com/paritytech/polkadot-sdk-parachain-template.git"
+authors = ["prmx-blockchain"]
+homepage = "https://decentrodev.github.io/polkadot-confidential-offchain-worker/"
+repository = "https://github.com/DecentroDev/polkadot-confidential-offchain-worker"
 edition = "2021"
 
 [workspace]
