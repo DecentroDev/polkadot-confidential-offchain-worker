@@ -1,0 +1,25 @@
+{
+  "name": "polkadot-confidential-offchain-worker",
+  "version": "1.0.0",
+  "description": "Confidential offchain worker for Polkadot SDK-based blockchains with HTTP API integration",
+  "main": "http-api-server.js",
+  "scripts": {
+    "api": "node http-api-server.js",
+    "test": "node test-offchain-worker.js"
+  },
+  "keywords": [
+    "polkadot",
+    "substrate",
+    "offchain-worker",
+    "blockchain",
+    "api"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@polkadot/api": "^12.4.2",
+    "@polkadot/keyring": "^13.5.6",
+    "@polkadot/util-crypto": "^13.5.6"
+  }
+}
+

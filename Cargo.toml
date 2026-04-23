@@ -108,3 +108,9 @@ xcm-builder = { version = "17.0.0", default-features = false, package = "staging
 xcm-executor = { version = "17.0.0", default-features = false, package = "staging-xcm-executor" }
 substrate-wasm-builder = { version = "24.0.1", default-features = false }
 lite-json = { version = "0.2.0", default-features = false }
+
+[profile.release]
+panic = "abort"
+
+[profile.dev]
+panic = "abort"
